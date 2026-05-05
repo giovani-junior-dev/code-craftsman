@@ -1,99 +1,99 @@
-# LLM Laziness Guard — Forçar IA usar conhecimento real
+# LLM Laziness Guard — Force AI to use real knowledge
 
-## Tese
-LLMs avançados (Claude/GPT/Opus) **têm conhecimento profundo** de engenharia. Mas são treinados pra iterar (mais tokens = mais receita).
+## Thesis
+Advanced LLMs (Claude/GPT/Opus) **have deep knowledge** of engineering. But they're trained to iterate (more tokens = more revenue).
 
-Esta skill **força usar conhecimento real desde 1ª resposta** — bloqueia simplificação preguiçosa.
+This skill **forces using real knowledge from 1st response** — blocks lazy simplification.
 
-## Padrões de preguiça do LLM
+## LLM laziness patterns
 
-### 1. Solução genérica quando específica resolve
-❌ "Aqui um exemplo genérico, adapte para seu caso"
-✅ Solução específica para o contexto exato
+### 1. Generic solution when specific solves
+❌ "Here's a generic example, adapt to your case"
+✅ Specific solution for the exact context
 
-### 2. Pseudocódigo quando código real possível
+### 2. Pseudocode when real code possible
 ❌ `// implement validation here`
-✅ Código real funcionando
+✅ Real working code
 
-### 3. Multiple options ao invés de decidir
-❌ "Você pode fazer assim, ou assim, ou assim..."
-✅ "Recomendo X. Trade-off: Y"
+### 3. Multiple options instead of deciding
+❌ "You can do it this way, or this way, or this way..."
+✅ "I recommend X. Trade-off: Y"
 
-### 4. Stub/mock que precisará ser substituído
+### 4. Stub/mock that needs replacing
 ❌ `function doX() { /* TODO */ }`
-✅ Implementação completa
+✅ Complete implementation
 
-### 5. Try/catch que apenas re-throw
+### 5. Try/catch that only re-throws
 ❌ `try { ... } catch(e) { throw e }`
-✅ Tratamento real ou remove try/catch
+✅ Real handling or remove try/catch
 
-### 6. Boolean flag que vira código duplicado
+### 6. Boolean flag becoming duplicated code
 ❌ `function process(data, isAdmin: boolean)`
 ✅ `processForAdmin(data)` + `processForUser(data)`
 
-### 7. Padrão complexo para sistema simples
-❌ Event Sourcing para CRUD básico
-✅ Tabela direto, evento se realmente precisar
+### 7. Complex pattern for simple system
+❌ Event Sourcing for basic CRUD
+✅ Direct table, event only if really needed
 
-### 8. Abstração preventiva (YAGNI)
-❌ `IRepository` com 1 implementação
-✅ Função direta, abstrai no 2º caso real
+### 8. Preventive abstraction (YAGNI)
+❌ `IRepository` with 1 implementation
+✅ Direct function, abstract on 2nd real case
 
-## Resistência ativa
+## Active resistance
 
-Quando IA propor:
+When AI proposes:
 
-### "Vou criar uma interface IUserRepository"
-→ Pergunta: "Existe 2ª implementação real ou planejada?"
-→ Se não: "Use função direta, abstrai depois se preciso"
+### "I'll create an IUserRepository interface"
+→ Question: "Is there a 2nd real or planned implementation?"
+→ If no: "Use direct function, abstract later if needed"
 
-### "Vou criar UseCase + Handler + Service"
-→ Pergunta: "Qual dor real isso resolve agora?"
-→ Se não tem dor: "Use 1 função flat com 3 responsabilidades"
+### "I'll create UseCase + Handler + Service"
+→ Question: "What real pain does this solve now?"
+→ If no pain: "Use 1 flat function with 3 responsibilities"
 
-### "Vou usar Event Sourcing/CQRS"
-→ Pergunta: "Quantos eventos por minuto? Auditoria temporal exigida?"
-→ Se sistema simples: "Tabela normal + log de auditoria se precisar"
+### "I'll use Event Sourcing/CQRS"
+→ Question: "How many events per minute? Required temporal audit?"
+→ If simple system: "Normal table + audit log if needed"
 
-### "Vou abstrair em camadas (presentation/application/domain/infrastructure)"
-→ Pergunta: "Code base atual tem 1M linhas, 50 devs?"
-→ Se não: "Pasta por domínio, design flat dentro"
+### "I'll abstract in layers (presentation/application/domain/infrastructure)"
+→ Question: "Does current codebase have 1M lines, 50 devs?"
+→ If no: "Folder by domain, flat design within"
 
-### "Vou criar 18 arquivos para essa feature"
-→ Recusa: "Refaça com 3 arquivos: entrada/lógica/persistência"
+### "I'll create 18 files for this feature"
+→ Refuse: "Redo with 3 files: input/logic/persistence"
 
-### "Vou escrever pseudocódigo para você adaptar"
-→ Recusa: "Escreva código real funcionando"
+### "I'll write pseudocode for you to adapt"
+→ Refuse: "Write real working code"
 
-### "Vou colocar TODO aqui"
-→ Pergunta: "Isso é spike (marca SPIKE) ou implementação?"
-→ Se implementação: "Implemente agora, TODO bloqueia merge"
+### "I'll put TODO here"
+→ Question: "Is this a spike (mark SPIKE) or implementation?"
+→ If implementation: "Implement now, TODO blocks merge"
 
-## Forçar 1ª resposta correta
+## Force correct 1st response
 
-Quando pedido novo código, IA deve:
+When asked for new code, AI must:
 
-1. **Ler regras desta skill** antes de propor
-2. **Aplicar Clean Code direto** (não simplificar)
-3. **Escolher arquitetura mínima viável** (não over-engineer)
-4. **Escrever teste primeiro** (TDD não-negociável)
-5. **Output caveman** (sem fluff)
+1. **Read this skill's rules** before proposing
+2. **Apply Clean Code directly** (don't simplify)
+3. **Choose minimum viable architecture** (don't over-engineer)
+4. **Write test first** (TDD non-negotiable)
+5. **Caveman output** (no fluff)
 
-## Benchmark de qualidade da resposta
+## Response quality benchmark
 
-Resposta IA deve:
-- ✅ Compilar sem erro
-- ✅ Passar lint do projeto
-- ✅ Ter teste correspondente
-- ✅ Seguir naming conventions do domain
-- ✅ Não introduzir interface/abstração nova sem justificativa
-- ✅ Ser conciso (caveman)
-- ✅ Funcionar na 1ª tentativa (não precisar iterar)
+AI response must:
+- ✅ Compile without error
+- ✅ Pass project lint
+- ✅ Have corresponding test
+- ✅ Follow domain naming conventions
+- ✅ Not introduce new interface/abstraction without justification
+- ✅ Be concise (caveman)
+- ✅ Work on 1st attempt (no need to iterate)
 
-Falhar 1+ critério → resposta inadequada → reescrever.
+Failing 1+ criteria → inadequate response → rewrite.
 
-## Frase do Akita
+## Akita's quote
 
-> "A IA reflete quem você é."
+> "AI reflects who you are."
 
-Esta skill garante que **cada interação** force qualidade — independente do humor do dia ou cansaço do dev.
+This skill ensures **every interaction** forces quality — regardless of mood or tiredness.

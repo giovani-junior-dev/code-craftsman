@@ -1,71 +1,71 @@
-# Clean Code — Regras Mensuráveis (Robert C. Martin)
+# Clean Code — Measurable Rules (Robert C. Martin)
 
-## Nomenclatura
-- Revelar intenção: `elapsedTimeInDays`, não `d`
-- Sem ruído: `Name`, não `NameString`/`NameInfo`
-- Sem prefixo `I` em interface, sem `m_`, sem Notação Húngara
-- Substantivos em classes/objetos (`Customer`, `Account`)
-- Verbos em métodos (`postPayment`, `deletePage`)
-- Padrão getter/setter: `get*`, `set*`, `is*`
-- Nome longo = escopo longo
-- Letras soltas só em loop muito curto
+## Naming
+- Reveal intention: `elapsedTimeInDays`, not `d`
+- No noise: `Name`, not `NameString`/`NameInfo`
+- No `I` prefix on interfaces, no `m_`, no Hungarian Notation
+- Nouns for classes/objects (`Customer`, `Account`)
+- Verbs for methods (`postPayment`, `deletePage`)
+- Getter/setter pattern: `get*`, `set*`, `is*`
+- Long name = long scope
+- Lone letters only in very short loops
 
-## Funções
-- ≤20 linhas
-- Indentação ≤2 níveis
-- 0/1/2 parâmetros (3+ → encapsular em objeto)
-- 1 coisa só (SRP)
-- Sem flag boolean (indica 2 funções)
-- Sem output args (modificar entrada confunde)
+## Functions
+- ≤20 lines
+- Indentation ≤2 levels
+- 0/1/2 parameters (3+ → encapsulate in object)
+- One thing only (SRP)
+- No boolean flag (indicates 2 functions)
+- No output args (modifying input is confusing)
 
-## Comentários
-- Não compensam código ruim — limpar código primeiro
-- Bons: legal, intent, warning, TODO
-- Ruins: redundante, histórico, **código comentado** (deletar)
-- Regra do agente: WHY > WHAT (motivação > o que faz)
+## Comments
+- Don't compensate for bad code — clean code first
+- Good: legal, intent, warning, TODO
+- Bad: redundant, history, **commented-out code** (delete)
+- Agent rule: WHY > WHAT (motivation > what it does)
 
-## Formatação
-- Arquivos ~200 linhas (max 500)
-- Top-down: alto nível → detalhe (jornal)
-- Linhas ≤120 chars
-- Variável local antes do uso
-- Variáveis instância no topo da classe
-- Chamador acima do chamado
+## Formatting
+- Files ~200 lines (max 500)
+- Top-down: high level → detail (newspaper)
+- Lines ≤120 chars
+- Local variable before use
+- Instance variables at top of class
+- Caller above callee
 
 ## Classes
-- Tamanho = nº responsabilidades (não linhas)
-- Descritível em ~25 palavras sem "se/e/ou/mas"
-- ≤7 variáveis instância
-- Alta coesão — cada método usa muitas variáveis
-- DIP — depende de abstração
+- Size = number of responsibilities (not lines)
+- Describable in ~25 words without "if/and/or/but"
+- ≤7 instance variables
+- High cohesion — each method uses many variables
+- DIP — depends on abstraction
 
-## Testes (TDD + F.I.R.S.T)
+## Tests (TDD + F.I.R.S.T)
 
-### 3 Leis TDD
-1. Não escrever código produção sem teste falhando
-2. Não escrever mais teste que necessário para falhar
-3. Não escrever mais código que necessário para passar
+### 3 Laws of TDD
+1. Don't write production code without failing test
+2. Don't write more test than necessary to fail
+3. Don't write more code than necessary to pass
 
 ### F.I.R.S.T
 - **F**ast — <100ms unit
-- **I**ndependent — ordem aleatória passa
-- **R**epeatable — qualquer ambiente
+- **I**ndependent — random order passes
+- **R**epeatable — any environment
 - **S**elf-validating — boolean
-- **T**imely — antes do código produção
+- **T**imely — before production code
 
 ### Rules
-- 1 assert/teste, 1 conceito/teste
+- 1 assert/test, 1 concept/test
 - Naming: `should_X_when_Y`
 
-## Tratamento de Erros
-- Exceções > códigos retorno
-- Não retorna null → coleção vazia ou Special Case
-- Não passa null como argumento
+## Error Handling
+- Exceptions > return codes
+- Don't return null → empty collection or Special Case
+- Don't pass null as argument
 
 ## Code Smells
-- **G5 DRY:** duplicação = inimigo principal
-- **G14 Feature Envy:** método acessa dados de outro objeto repetidamente
-- **G23 Switch:** >3 cases sem polimorfismo
-- **G25 Magic Numbers:** sem constante nomeada
-- **G28 Boolean:** encapsular em método (`shouldBeDeleted(timer)`)
-- **G36 Lei de Demeter:** sem `a.b().c().d()` (Shy Code)
+- **G5 DRY:** duplication = main enemy
+- **G14 Feature Envy:** method repeatedly accesses another object's data
+- **G23 Switch:** >3 cases without polymorphism
+- **G25 Magic Numbers:** without named constant
+- **G28 Boolean:** encapsulate in method (`shouldBeDeleted(timer)`)
+- **G36 Law of Demeter:** no `a.b().c().d()` (Shy Code)

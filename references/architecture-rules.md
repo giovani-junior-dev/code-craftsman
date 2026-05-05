@@ -1,78 +1,78 @@
-# Architecture Rules — DDD Estratégico + Flat First
+# Architecture Rules — Strategic DDD + Flat First
 
-## Princípio supremo
-> Estratégico primeiro, flat depois, abstrai por dor.
+## Supreme principle
+> Strategic first, flat next, abstract by pain.
 
-## Passo 1: Monolítico modular
-- Pastas por domínio: `billing/`, `orders/`, `identity/`
-- Cada módulo:
-  - Próprio modelo de dados
-  - Próprias entidades
-  - Não importa código de outros módulos diretamente
-- Comunicação entre módulos: eventos ou shared/
+## Step 1: Modular monolith
+- Folders by domain: `billing/`, `orders/`, `identity/`
+- Each module has:
+  - Own data model
+  - Own entities
+  - Doesn't import code from other modules directly
+- Inter-module communication: events or shared/
 
-## Passo 2: Design flat dentro do módulo
-- 3 arquivos típicos:
-  1. **Entrada** — handler/controller (parse/validate)
-  2. **Lógica** — pure business (regras domínio)
-  3. **Persistência** — direct DB (sem repository pattern)
-- Procedural com encapsulamento
-- SEM cerimônia: sem use case, port, adapter, mapper
+## Step 2: Flat design within module
+- 3 typical files:
+  1. **Input** — handler/controller (parse/validate)
+  2. **Logic** — pure business (domain rules)
+  3. **Persistence** — direct DB (no repository pattern)
+- Procedural with encapsulation
+- NO ceremony: no use case, port, adapter, mapper
 
-## Passo 3: Abstrai SÓ por dor real
+## Step 3: Abstract ONLY by real pain
 
-### Perguntas para decidir:
-- Trocou dependência nos últimos 2 anos? → não → não abstrai
-- 2º uso real do mesmo código? → sim → extrai. Nunca antes do 2º caso
-- Contrato externo ruim/instável? → Anti-Corruption Layer
+### Questions to decide:
+- Have you swapped this dependency in the last 2 years? → no → don't abstract
+- 2nd real use of same code? → yes → extract. Never before 2nd case
+- Bad/unstable external contract? → Anti-Corruption Layer
 
-## DDD Estratégico (mantém)
-- **Bounded contexts** — cada módulo é um contexto
-- **Ubiquitous Language** — termos consistentes (CONTEXT.md)
-- **Shared Kernel** — apenas o estritamente necessário em `shared/`
-- **Anti-Corruption Layer** — entre teu domínio e contratos externos ruins
+## Strategic DDD (keep)
+- **Bounded contexts** — each module is a context
+- **Ubiquitous Language** — consistent terms (CONTEXT.md)
+- **Shared Kernel** — only the strictly necessary in `shared/`
+- **Anti-Corruption Layer** — between your domain and bad external contracts
 
-## DDD Tático (descartável)
-- ❌ Aggregate Root sempre
-- ❌ Value Object para tudo
-- ❌ Domain Service genérico
-- ❌ Repository pattern para CRUD
+## Tactical DDD (disposable)
+- ❌ Aggregate Root always
+- ❌ Value Object for everything
+- ❌ Generic Domain Service
+- ❌ Repository pattern for CRUD
 
-Use só onde adiciona valor real.
+Use only where it adds real value.
 
-## Encapsulamento ≠ Inversão de Dependência
+## Encapsulation ≠ Dependency Inversion
 
-### Encapsulamento (sempre faz)
-- Esconder detalhes implementação
-- Cliente chama método, não sabe interna
-- `userRepo.find(id)` — não sabe que usa Prisma
+### Encapsulation (always do)
+- Hide implementation details
+- Client calls method, doesn't know internals
+- `userRepo.find(id)` — doesn't know it uses Prisma
 
-### Inversão de Dependência (raro)
-- Domain depende de interface, infra implementa
-- Justifica APENAS se múltiplas implementações reais
-- Não confundir com "facilita teste" — frameworks mockam qualquer coisa
+### Dependency Inversion (rare)
+- Domain depends on interface, infra implements
+- Justifies ONLY if multiple real implementations
+- Don't confuse with "easier to test" — frameworks mock anything
 
-## Limites baratos para IA não bagunçar
+## Cheap limits to prevent AI mess
 
-Em vez de Clean Architecture pesada:
-- Tipos fortes entre módulos (Zod/TypeBox)
-- Testes de comportamento (não implementação)
-- Lint proibindo import cruzado entre domínios (`dependency-cruiser`)
-- Pastas delimitadas com naming convention
-- ADRs para decisões não-óbvias
+Instead of heavy Clean Architecture:
+- Strong types between modules (Zod/TypeBox)
+- Behavior tests (not implementation)
+- Lint forbidding cross-imports between domains (`dependency-cruiser`)
+- Bounded folders with naming convention
+- ADRs for non-obvious decisions
 
-## Quando reconsiderar abstração
+## When to reconsider abstraction
 
-Sinais que justificam abstrair:
-- Mesmo código em 3+ lugares (DRY)
-- Contrato instável de 3rd-party (ACL)
-- Equipe grande precisa boundary clara
-- Performance específica exige
-- Compliance/security exige isolamento
+Signs that justify abstracting:
+- Same code in 3+ places (DRY)
+- Unstable 3rd-party contract (ACL)
+- Large team needs clear boundary
+- Specific performance requires
+- Compliance/security requires isolation
 
-## Regra de ouro
+## Golden rule
 
-> Código simples = fácil refatorar
-> Abstração que adivinha futuro = atrapalha quando futuro chega diferente
+> Simple code = easy to refactor
+> Abstraction that guesses the future = gets in the way when future arrives different
 
-YAGNI > antecipar tudo.
+YAGNI > anticipating everything.

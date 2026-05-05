@@ -1,29 +1,29 @@
-# TDD Protocol — passo a passo
+# TDD Protocol — step by step
 
-## Sequência rígida
+## Strict sequence
 
 ```
 1. EARS requirement (When/shall)
 2. ATDD acceptance test (failing)
-3. Loop unidade:
-   a. RED — escreve teste falhando
-   b. GREEN — código mínimo passa
-   c. REFACTOR — melhora design, testes verdes
+3. Unit loop:
+   a. RED — write failing test
+   b. GREEN — minimal code to pass
+   c. REFACTOR — improve design, tests green
 4. Auto-trigger:
    - UI? → snapshot test
-   - HTTP externo? → contract test
+   - External HTTP? → contract test
 5. Mutation testing (Stryker)
 6. Coverage ratchet (changed files ≥80%)
 7. F.I.R.S.T compliance check
-8. Pergunta E2E (opt-in)
+8. E2E question (opt-in)
 ```
 
-## Skip apenas em:
-- Spike/exploration (marcador `// SPIKE: <reason>`)
-- Bootstrap projeto novo (até 1ª feature)
-- Migration script one-shot
+## Skip only in:
+- Spike/exploration (`// SPIKE: <reason>` marker)
+- Bootstrap new project (until 1st feature)
+- One-shot migration script
 
-## Estrutura de pastas
+## Folder structure
 
 ```
 project/
@@ -31,19 +31,19 @@ project/
 │   └── billing/
 │       ├── create-invoice.ts
 │       ├── create-invoice.test.ts
-│       └── create-invoice.contract.test.ts (se HTTP externo)
+│       └── create-invoice.contract.test.ts (if external HTTP)
 ├── tests/
 │   ├── snapshot/
 │   ├── contract/
-│   └── e2e/ (se opt-in)
+│   └── e2e/ (if opt-in)
 └── stryker.config.json
 ```
 
-## Naming convention testes
+## Test naming convention
 
 `should_<expected>_when_<condition>`
 
-Exemplos:
+Examples:
 - `should_throw_when_email_invalid`
 - `should_return_user_when_id_exists`
 - `should_skip_when_already_processed`
@@ -63,20 +63,20 @@ it('should X when Y', () => {
 })
 ```
 
-## Mocking — quando
+## Mocking — when
 
 - ✅ Boundary (DB, HTTP, file system, time)
 - ✅ Slow operation (network, IO)
-- ❌ Internal collaborators (acopla a impl)
-- ❌ Toda dependência (mock excessivo)
+- ❌ Internal collaborators (couples to impl)
+- ❌ Every dependency (excessive mocking)
 
 ## Mutation Score
-- ≥70% mínimo (skill enforce)
+- ≥70% minimum (skill enforces)
 - ≥80% ideal
-- Mutações sobreviventes = testes fracos
+- Surviving mutations = weak tests
 
 ## Coverage targets
-- Novo código: ≥80%
-- Total projeto: ratchet (só sobe)
+- New code: ≥80%
+- Total project: ratchet (only rises)
 - Branches: ≥75%
 - Functions: ≥80%

@@ -1,61 +1,61 @@
-# Anti-padrões — O que BLOQUEAR
+# Anti-patterns — What to BLOCK
 
 ## Naming
-- ❌ Classes genéricas: `Manager`, `Processor`, `Handler`, `Util`, `Helper`, `Service` (sem domínio)
-- ❌ Prefixos: `IRepository`, `m_var`, `_private`
-- ❌ Notação Húngara
-- ❌ Sufixos redundantes: `NameString`, `UserData`, `OrderInfo`
-- ❌ Letras soltas: `d`, `tmp`, `obj` fora de loop curto
+- ❌ Generic classes: `Manager`, `Processor`, `Handler`, `Util`, `Helper`, `Service` (without domain)
+- ❌ Prefixes: `IRepository`, `m_var`, `_private`
+- ❌ Hungarian Notation
+- ❌ Redundant suffixes: `NameString`, `UserData`, `OrderInfo`
+- ❌ Lone letters: `d`, `tmp`, `obj` outside short loop
 
-## Funções
-- ❌ Boolean flag parameter: `doX(flag: true)` — indica 2 funções
-- ❌ Output args: modificar entrada — usar return
-- ❌ 3+ parâmetros sem encapsular em objeto
-- ❌ Função >20 linhas
-- ❌ Indentação >2 níveis (deep nesting)
+## Functions
+- ❌ Boolean flag parameter: `doX(flag: true)` — indicates 2 functions
+- ❌ Output args: modifying input — use return
+- ❌ 3+ parameters without encapsulating in object
+- ❌ Function >20 lines
+- ❌ Indentation >2 levels (deep nesting)
 
-## Arquitetura
-- ❌ Interface sem 2ª implementação real
-- ❌ UseCase para CRUD simples
-- ❌ DTO/Mapper em 3+ camadas sem dor real
-- ❌ Inversão de dependência preventiva
-- ❌ Import cruzado entre domínios (`billing/` importa `orders/`)
-- ❌ Clean Architecture ritualística (use cases, ports, adapters sem necessidade)
-- ❌ Eventourcing/CQRS para CRUD simples
+## Architecture
+- ❌ Interface without 2nd real implementation
+- ❌ UseCase for simple CRUD
+- ❌ DTO/Mapper in 3+ layers without real pain
+- ❌ Preventive dependency inversion
+- ❌ Cross-domain imports (`billing/` imports `orders/`)
+- ❌ Ritualistic Clean Architecture (use cases, ports, adapters without need)
+- ❌ Event Sourcing/CQRS for simple CRUD
 
-## Testes
-- ❌ Código produção SEM teste prévio (verifica git timestamp)
-- ❌ Múltiplos asserts não relacionados num teste
-- ❌ `if`/`switch` dentro de teste
-- ❌ `.only`/`.skip` em commit
-- ❌ Mock excessivo (>3 mocks num teste)
-- ❌ Snapshot externo >50 linhas
-- ❌ Teste depois do código (timely violation)
-- ❌ Teste acoplado à implementação (mockando demais)
+## Tests
+- ❌ Production code WITHOUT prior test (verifies via git timestamp)
+- ❌ Multiple unrelated asserts in a test
+- ❌ `if`/`switch` inside test
+- ❌ `.only`/`.skip` in commit
+- ❌ Excessive mocking (>3 mocks in one test)
+- ❌ External snapshot >50 lines
+- ❌ Test after code (timely violation)
+- ❌ Test coupled to implementation (over-mocking)
 
-## Comentários
-- ❌ Código comentado (deletar — git guarda)
-- ❌ Comentário redundante (explica O QUÊ visível)
-- ❌ Histórico de mudanças (git já faz)
-- ❌ Comentário sem WHY (motivação)
-- ❌ Comentários falsos/desatualizados
+## Comments
+- ❌ Commented-out code (delete — git keeps history)
+- ❌ Redundant comment (explains visible WHAT)
+- ❌ Change history (git already does)
+- ❌ Comment without WHY (motivation)
+- ❌ False/outdated comments
 
-## Geral
-- ❌ Números mágicos (sem constante nomeada)
-- ❌ Switch grande (>3 cases) sem polimorfismo
-- ❌ Lei de Demeter: `a.b().c().d()`
-- ❌ Duplicação (DRY)
-- ❌ Dead code (Knip detecta)
-- ❌ Console.log em produção
-- ❌ TODO sem issue number
-- ❌ Catch sem tratar erro (silencioso)
-- ❌ Promise sem await sem motivo
+## General
+- ❌ Magic numbers (without named constant)
+- ❌ Large switch (>3 cases) without polymorphism
+- ❌ Law of Demeter: `a.b().c().d()`
+- ❌ Duplication (DRY)
+- ❌ Dead code (Knip detects)
+- ❌ Console.log in production
+- ❌ TODO without issue number
+- ❌ Empty catch (silent error)
+- ❌ Promise without await without reason
 
 ## LLM-specific (vibe coding)
-- ❌ Nomes inventados sem domain match
-- ❌ Padrões super complexos (event sourcing) para sistema simples
-- ❌ Solução genérica quando específica resolve
-- ❌ Múltiplas "soluções" ao invés de escolher 1
-- ❌ Pseudo-código quando código real é possível
-- ❌ Comentário tipo "// Add error handling here" sem implementar
-- ❌ Try/catch que apenas re-throw
+- ❌ Made-up names without domain match
+- ❌ Super complex patterns (event sourcing) for simple system
+- ❌ Generic solution when specific solves
+- ❌ Multiple "solutions" instead of choosing 1
+- ❌ Pseudocode when real code possible
+- ❌ Comment like "// Add error handling here" without implementing
+- ❌ Try/catch that just re-throws
