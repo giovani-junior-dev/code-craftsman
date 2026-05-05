@@ -1,0 +1,58 @@
+/**
+ * Contract test template — Pact + MSW + Zod
+ * Use when: external HTTP call (fetch/axios), microservice integration
+ * Schema é fonte da verdade — runtime validate response
+ */
+
+import { describe, it, expect, beforeAll, afterEach, afterAll } from 'vitest'
+import { setupServer } from 'msw/node'
+import { http, HttpResponse } from 'msw'
+import { z } from 'zod'
+
+// 1. Schema = contract
+const UserSchema = z.object({
+  id: z.string().uuid(),
+  email: z.string().email(),
+  createdAt: z.string().datetime(),
+})
+
+type User = z.infer<typeof UserSchema>
+
+// 2. Mock server with realistic response
+const server = setupServer(
+  http.get('https://api.example.com/users/:id', ({ params }) => {
+    return HttpResponse.json({
+      id: '550e8400-e29b-41d4-a716-446655440000',
+      email: 'user@example.com',
+      createdAt: '2026-01-01T00:00:00.000Z',
+    })
+  }),
+)
+
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())
+
+describe('UserAPI contract', () => {
+  it('should match User schema', async () => {
+    const response = await fetch('https://api.example.com/users/123')
+    const data = await response.json()
+
+    // Throws if contract violated
+    const parsed = UserSchema.parse(data)
+    expect(parsed.email).toBeTruthy()
+  })
+
+  it('should reject malformed response', async () => {
+    server.use(
+      http.get('https://api.example.com/users/:id', () =>
+        HttpResponse.json({ id: 'not-uuid', email: 'invalid' })
+      ),
+    )
+
+    const response = await fetch('https://api.example.com/users/123')
+    const data = await response.json()
+
+    expect(() => UserSchema.parse(data)).toThrow()
+  })
+})

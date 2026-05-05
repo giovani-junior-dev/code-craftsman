@@ -1,0 +1,83 @@
+/**
+ * Flat module template — 3 arquivos por feature
+ * Estrutura: entrada / lógica / persistência
+ * Sem use case, port, adapter, mapper — abstrai por dor real
+ */
+
+// ============================================
+// 1. ENTRADA — handler/controller
+// src/billing/create-invoice.handler.ts
+// ============================================
+import { z } from 'zod'
+import { createInvoice } from './create-invoice'
+
+const RequestSchema = z.object({
+  customerId: z.string().uuid(),
+  amount: z.number().positive(),
+  dueDate: z.string().datetime(),
+})
+
+export async function createInvoiceHandler(req: unknown) {
+  const input = RequestSchema.parse(req)
+  return createInvoice(input)
+}
+
+// ============================================
+// 2. LÓGICA — pure business logic
+// src/billing/create-invoice.ts
+// ============================================
+import { saveInvoice } from './invoices.repo'
+
+interface CreateInvoiceInput {
+  customerId: string
+  amount: number
+  dueDate: string
+}
+
+export async function createInvoice(input: CreateInvoiceInput) {
+  // Domain rules
+  if (input.amount > 1_000_000) throw new Error('Amount exceeds max')
+
+  const invoice = {
+    id: crypto.randomUUID(),
+    ...input,
+    status: 'pending' as const,
+    createdAt: new Date().toISOString(),
+  }
+
+  return saveInvoice(invoice)
+}
+
+// ============================================
+// 3. PERSISTÊNCIA — direct, no abstraction
+// src/billing/invoices.repo.ts
+// ============================================
+import { db } from '../db'
+
+interface Invoice {
+  id: string
+  customerId: string
+  amount: number
+  dueDate: string
+  status: 'pending' | 'paid' | 'cancelled'
+  createdAt: string
+}
+
+export async function saveInvoice(invoice: Invoice) {
+  await db.insert('invoices').values(invoice)
+  return invoice
+}
+
+export async function findInvoiceById(id: string) {
+  return db.select().from('invoices').where({ id }).first()
+}
+
+/**
+ * NÃO criar:
+ * - IInvoiceRepository (interface sem 2ª impl)
+ * - InvoiceUseCase
+ * - InvoiceMapper / InvoiceDTO
+ *
+ * SE precisar trocar DB no futuro: refactor então.
+ * Código simples = fácil refatorar.
+ */

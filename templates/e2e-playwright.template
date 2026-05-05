@@ -1,0 +1,46 @@
+/**
+ * E2E Playwright template — Page Object Model + smoke
+ * Generated only if user opted-in via /code-craftsman:e2e-decide
+ */
+
+import { test, expect, Page } from '@playwright/test'
+
+// Page Object Model
+class LoginPage {
+  constructor(private page: Page) {}
+
+  async goto() {
+    await this.page.goto('/login')
+  }
+
+  async fillCredentials(email: string, password: string) {
+    await this.page.getByLabel('Email').fill(email)
+    await this.page.getByLabel('Password').fill(password)
+  }
+
+  async submit() {
+    await this.page.getByRole('button', { name: /sign in/i }).click()
+  }
+
+  async expectError(message: string | RegExp) {
+    await expect(this.page.getByRole('alert')).toContainText(message)
+  }
+}
+
+test.describe('Login flow', () => {
+  test('happy path — valid credentials redirect to dashboard', async ({ page }) => {
+    const login = new LoginPage(page)
+    await login.goto()
+    await login.fillCredentials('user@example.com', 'valid-password')
+    await login.submit()
+    await expect(page).toHaveURL(/dashboard/)
+  })
+
+  test('invalid credentials show error', async ({ page }) => {
+    const login = new LoginPage(page)
+    await login.goto()
+    await login.fillCredentials('user@example.com', 'wrong')
+    await login.submit()
+    await login.expectError(/invalid credentials/i)
+  })
+})

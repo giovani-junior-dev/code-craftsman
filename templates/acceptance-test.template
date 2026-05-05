@@ -1,0 +1,34 @@
+/**
+ * ATDD — Acceptance Test Driven Development
+ * Written from EARS requirement BEFORE implementation
+ * Highest level test that drives feature
+ */
+
+import { describe, it, expect } from 'vitest'
+
+/**
+ * EARS: When <trigger>, the <system> shall <response>
+ * Example: When user submits valid signup form, the auth service shall create user account.
+ */
+
+describe('Acceptance: User Signup', () => {
+  it('When valid signup data submitted, account is created and welcome email sent', async () => {
+    // Given (context)
+    const signupData = {
+      email: 'new@example.com',
+      password: 'StrongP@ss123',
+      acceptedTerms: true,
+    }
+
+    // When (action — drives entire stack)
+    const result = await signupService.signup(signupData)
+
+    // Then (observable outcomes)
+    expect(result.userId).toBeTruthy()
+    expect(result.welcomeEmailQueued).toBe(true)
+
+    const user = await userRepo.findByEmail('new@example.com')
+    expect(user).toBeTruthy()
+    expect(user.emailVerified).toBe(false)
+  })
+})

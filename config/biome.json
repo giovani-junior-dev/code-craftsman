@@ -1,0 +1,68 @@
+{
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": { "ignoreUnknown": false, "ignore": ["dist", "build", "node_modules", "coverage"] },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120,
+    "lineEnding": "lf"
+  },
+  "organizeImports": { "enabled": true },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "complexity": {
+        "noExcessiveCognitiveComplexity": { "level": "error", "options": { "maxAllowedComplexity": 15 } },
+        "noUselessCatch": "error",
+        "noUselessLoneBlockStatements": "error",
+        "noUselessTernary": "error",
+        "noUselessTypeConstraint": "error",
+        "useLiteralKeys": "error",
+        "useSimpleNumberKeys": "error"
+      },
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": "error",
+        "noUnusedFunctionParameters": "error",
+        "noUnreachable": "error",
+        "useExhaustiveDependencies": "error"
+      },
+      "style": {
+        "noNamespace": "error",
+        "noNegationElse": "error",
+        "noParameterAssign": "error",
+        "useConst": "error",
+        "useShorthandFunctionType": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error",
+        "useTemplate": "error",
+        "noVar": "error"
+      },
+      "suspicious": {
+        "noExplicitAny": "error",
+        "noConsoleLog": "warn",
+        "noDebugger": "error",
+        "noDoubleEquals": "error",
+        "noShadowRestrictedNames": "error",
+        "noEmptyBlockStatements": "error"
+      },
+      "performance": {
+        "noAccumulatingSpread": "error",
+        "noDelete": "error"
+      },
+      "nursery": {
+        "useSortedClasses": "warn"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "semicolons": "asNeeded",
+      "trailingCommas": "all"
+    }
+  }
+}

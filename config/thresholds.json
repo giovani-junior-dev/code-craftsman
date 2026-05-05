@@ -1,0 +1,46 @@
+{
+  "function": {
+    "maxLines": 20,
+    "maxIndentation": 2,
+    "maxParameters": 2,
+    "maxComplexity": 5
+  },
+  "file": {
+    "maxLines": 500,
+    "preferredLines": 200,
+    "maxLineLength": 120,
+    "maxImports": 15
+  },
+  "class": {
+    "maxInstanceVars": 7,
+    "maxPublicMethods": 10,
+    "maxResponsibilities": 1
+  },
+  "test": {
+    "maxAssertsPerTest": 1,
+    "maxRuntimeMs": 100,
+    "minCoverageNewCode": 80,
+    "minMutationScore": 70,
+    "maxSnapshotInlineLines": 50,
+    "maxMocksPerTest": 3
+  },
+  "naming": {
+    "blockedClassSuffixes": ["Manager", "Processor", "Handler", "Util", "Helper"],
+    "blockedPrefixes": ["I", "m_", "_"],
+    "blockedNoiseSuffixes": ["Info", "Data", "String", "Variable", "Table"],
+    "minNameLengthForFunctionScope": 3
+  },
+  "architecture": {
+    "allowCrossDomainImports": false,
+    "requireInterfaceForMultipleImpls": true,
+    "preventiveAbstractionAllowed": false,
+    "maxDtoLayers": 1
+  },
+  "ratchet": {
+    "duplicationCanIncrease": false,
+    "lintCanIncrease": false,
+    "complexityCanIncrease": false,
+    "fileSizeViolationsCanIncrease": false,
+    "coverageCanDecrease": false
+  }
+}

@@ -1,0 +1,7 @@
+node_modules/
+*.log
+.DS_Store
+state/stats.json
+state/session.json.bak
+
+# Keep state/enabled.flag and session.json defaults

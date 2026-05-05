@@ -1,0 +1,22 @@
+/**
+ * Snapshot test template — inline snapshots preferred
+ * Use when: UI component, complex object output, generated markdown/JSON
+ * NOT use when: simple primitive return (use unit test)
+ */
+
+import { describe, it, expect } from 'vitest'
+import { render } from '@testing-library/react'
+// import { ComponentUnderTest } from './component'
+
+describe('<Component>', () => {
+  it('should render with default props', () => {
+    const { container } = render(<ComponentUnderTest />)
+    // Inline preferido — ≤50 linhas, diff visível no PR
+    expect(container.innerHTML).toMatchInlineSnapshot()
+  })
+
+  it('should render variant correctly', () => {
+    const { container } = render(<ComponentUnderTest variant="primary" />)
+    expect(container.innerHTML).toMatchInlineSnapshot()
+  })
+})

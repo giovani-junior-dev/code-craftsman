@@ -1,0 +1,31 @@
+/**
+ * Unit test template — AAA pattern (Arrange / Act / Assert)
+ * Naming: should_<expected>_when_<condition>
+ */
+
+import { describe, it, expect, beforeEach } from 'vitest'
+// import { ... } from './subject-under-test'
+
+describe('<SubjectUnderTest>', () => {
+  // Setup if needed (but prefer fresh state per test)
+  beforeEach(() => {
+    // reset state, mocks
+  })
+
+  describe('<method or scenario>', () => {
+    it('should <expected outcome> when <condition>', () => {
+      // Arrange
+      const input = /* ... */
+
+      // Act
+      const result = /* invoke subject */
+
+      // Assert (1 conceito = 1 assert idealmente)
+      expect(result).toBe(/* expected */)
+    })
+
+    it('should throw <error> when <invalid condition>', () => {
+      expect(() => /* invoke */).toThrow(/* expected error */)
+    })
+  })
+})

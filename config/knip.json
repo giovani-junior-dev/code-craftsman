@@ -1,0 +1,20 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "_comment": "Knip — detect dead code, unused deps, circular refs",
+  "entry": ["src/index.{js,ts,tsx}!", "src/main.{js,ts,tsx}!"],
+  "project": ["src/**/*.{js,ts,tsx}!"],
+  "ignore": ["dist/**", "build/**", "coverage/**", ".stryker-tmp/**"],
+  "ignoreDependencies": [],
+  "ignoreBinaries": [],
+  "rules": {
+    "files": "error",
+    "dependencies": "error",
+    "devDependencies": "error",
+    "unlisted": "error",
+    "binaries": "error",
+    "unresolved": "error",
+    "exports": "error",
+    "types": "error",
+    "duplicates": "error"
+  }
+}

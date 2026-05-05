@@ -1,0 +1,29 @@
+{
+  "_comment": "Template — copied to project as .code-craftsman/baseline.json on init. Frozen metrics that ratchet enforces.",
+  "createdAt": null,
+  "lastUpdated": null,
+  "metrics": {
+    "lintViolations": 0,
+    "duplicationPercent": 0,
+    "coverage": 0,
+    "mutationScore": 0,
+    "filesAboveSizeLimit": 0,
+    "complexityViolations": 0,
+    "functionsAboveLineLimit": 0,
+    "circularDependencies": 0,
+    "deadCodeFiles": 0,
+    "untestedFiles": 0
+  },
+  "ratchetRules": {
+    "lintViolations": "decrease-only",
+    "duplicationPercent": "decrease-only",
+    "coverage": "increase-only",
+    "mutationScore": "increase-only",
+    "filesAboveSizeLimit": "decrease-only",
+    "complexityViolations": "decrease-only",
+    "functionsAboveLineLimit": "decrease-only",
+    "circularDependencies": "decrease-only",
+    "deadCodeFiles": "decrease-only",
+    "untestedFiles": "decrease-only"
+  }
+}

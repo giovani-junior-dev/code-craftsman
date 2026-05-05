@@ -1,0 +1,25 @@
+{
+  "$schema": "https://raw.githubusercontent.com/stryker-mutator/stryker-js/master/packages/api/schema/stryker-core.json",
+  "_comment": "Stryker mutation testing — validates test quality. Tests that pass mutations = weak tests.",
+  "packageManager": "npm",
+  "reporters": ["html", "clear-text", "progress", "json"],
+  "testRunner": "jest",
+  "testRunner_comment": "Use 'vitest' if vitest project",
+  "coverageAnalysis": "perTest",
+  "concurrency": 4,
+  "thresholds": {
+    "high": 80,
+    "low": 70,
+    "break": 70
+  },
+  "mutate": [
+    "src/**/*.{js,ts}",
+    "!src/**/*.test.{js,ts}",
+    "!src/**/*.spec.{js,ts}",
+    "!src/**/*.d.ts",
+    "!src/**/index.{js,ts}"
+  ],
+  "ignorePatterns": ["dist", "node_modules", "coverage"],
+  "incremental": true,
+  "incrementalFile": ".stryker-tmp/incremental.json"
+}
