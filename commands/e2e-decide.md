@@ -5,6 +5,6 @@ argument-hint: [feature-name]
 
 Run `node ~/.claude/skills/code-craftsman/scripts/e2e-prompt.js "$1"`.
 
-Asks: SIM (gera Playwright suite) / NÃO (cobre por unit+contract) / DEPOIS (cria issue).
+Asks: YES (generates Playwright suite) / NO (covered by unit+contract) / DEFERRED (creates issue).
 
 Decision recorded in `docs/adr/`.

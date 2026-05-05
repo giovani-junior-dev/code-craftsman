@@ -1,11 +1,11 @@
 /**
- * Flat module template — 3 arquivos por feature
- * Estrutura: entrada / lógica / persistência
- * Sem use case, port, adapter, mapper — abstrai por dor real
+ * Flat module template — 3 files per feature
+ * Structure: input / logic / persistence
+ * No use case, port, adapter, mapper — abstract by real pain
  */
 
 // ============================================
-// 1. ENTRADA — handler/controller
+// 1. INPUT — handler/controller
 // src/billing/create-invoice.handler.ts
 // ============================================
 import { z } from 'zod'
@@ -23,7 +23,7 @@ export async function createInvoiceHandler(req: unknown) {
 }
 
 // ============================================
-// 2. LÓGICA — pure business logic
+// 2. LOGIC — pure business logic
 // src/billing/create-invoice.ts
 // ============================================
 import { saveInvoice } from './invoices.repo'
@@ -49,7 +49,7 @@ export async function createInvoice(input: CreateInvoiceInput) {
 }
 
 // ============================================
-// 3. PERSISTÊNCIA — direct, no abstraction
+// 3. PERSISTENCE — direct, no abstraction
 // src/billing/invoices.repo.ts
 // ============================================
 import { db } from '../db'
@@ -73,11 +73,11 @@ export async function findInvoiceById(id: string) {
 }
 
 /**
- * NÃO criar:
- * - IInvoiceRepository (interface sem 2ª impl)
+ * DO NOT create:
+ * - IInvoiceRepository (interface without 2nd impl)
  * - InvoiceUseCase
  * - InvoiceMapper / InvoiceDTO
  *
- * SE precisar trocar DB no futuro: refactor então.
- * Código simples = fácil refatorar.
+ * IF DB swap needed in future: refactor then.
+ * Simple code = easy to refactor.
  */

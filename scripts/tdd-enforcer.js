@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 /* TDD enforcer v2 — verifies test exists before production code
  * SPIKE marker support with RIGID validation:
- *   - razão concreta (não palavras genéricas)
- *   - expiração ≤7 dias
- *   - issue obrigatória
+ *   - concrete reason (not generic words)
+ *   - expiration ≤7 days
+ *   - issue required
  * Usage: node tdd-enforcer.js <production-file>
  */
 const fs = require('fs')

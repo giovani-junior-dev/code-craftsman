@@ -1,77 +1,77 @@
-# SPIKE Protocol — bypass TDD para exploração
+# SPIKE Protocol — bypass TDD for exploration
 
-## Quando usar
-Spike = **exploração temporária** para validar hipótese técnica antes de comprometer com implementação.
+## When to use
+Spike = **temporary exploration** to validate technical hypothesis before committing to implementation.
 
-Casos legítimos:
-- Avaliar API externa nova (testar antes de adotar)
-- Reproduzir bug obscuro
-- Validar feasibility de algoritmo
-- Spike de UI para feedback visual rápido
+Legitimate cases:
+- Evaluate new external API (test before adopting)
+- Reproduce obscure bug
+- Validate algorithm feasibility
+- UI spike for quick visual feedback
 
-NÃO é spike:
-- "Vou testar depois"
-- "Não tem tempo agora"
-- "Feature pequena"
-- Bypass disfarçado de TDD
+NOT a spike:
+- "I'll test later"
+- "No time now"
+- "Small feature"
+- TDD bypass in disguise
 
-## Marker syntax (obrigatório)
+## Marker syntax (mandatory)
 
 ```typescript
 // SPIKE: <reason> — expires <YYYY-MM-DD>
 // SPIKE-ISSUE: #<number>
 ```
 
-Ambas linhas obrigatórias. Top do arquivo, antes de qualquer import.
+Both lines mandatory. Top of file, before any imports.
 
-## Regras rígidas
+## Strict rules
 
-1. **Razão concreta** — não "explorando", mas "validando se Stripe API v2 suporta X"
-2. **Expiração ≤7 dias** — após data, hook bloqueia toda edição até remover marker OU converter em código real com testes
-3. **Issue obrigatória** — `# SPIKE-ISSUE: #N` linka tracker (GitHub/Linear/local)
-4. **1 spike ativo por desenvolvedor** — força fechar antes de abrir outro
-5. **PR proibido** — spike NÃO pode mergear na main. Branch `spike/*` descartável
+1. **Concrete reason** — not "exploring", but "validating if Stripe API v2 supports X"
+2. **Expiration ≤7 days** — after date, hook blocks all editing until marker removed OR converted to real code with tests
+3. **Issue mandatory** — `# SPIKE-ISSUE: #N` links tracker (GitHub/Linear/local)
+4. **1 active spike per developer** — forces closing before opening another
+5. **PR forbidden** — spike CANNOT merge into main. `spike/*` branch is throw-away
 
-## Exemplo correto
+## Correct example
 
 ```typescript
-// SPIKE: testar Stripe Connect para split payment merchants — expires 2026-05-12
+// SPIKE: testing Stripe Connect for split payment merchants — expires 2026-05-12
 // SPIKE-ISSUE: #234
 
 import Stripe from 'stripe'
 
 const stripe = new Stripe(process.env.STRIPE_KEY!)
 
-// código exploratório sem testes — vai virar lixo OU virar feature real
+// exploratory code without tests — will become trash OR become real feature
 async function attemptSplit() {
   const transfer = await stripe.transfers.create({...})
-  console.log(transfer)  // ← OK em spike, proibido em produção
+  console.log(transfer)  // ← OK in spike, forbidden in production
 }
 ```
 
-## Exemplo incorreto (será bloqueado)
+## Incorrect example (will be blocked)
 
 ```typescript
-// SPIKE: testando  ← razão genérica
-                   ← falta expiração
-                   ← falta issue
+// SPIKE: testing  ← generic reason
+                   ← missing expiration
+                   ← missing issue
 ```
 
-## Conversão spike → produção
+## Spike → production conversion
 
-Quando spike valida hipótese:
+When spike validates hypothesis:
 
-1. Cria issue real para feature
-2. Apaga arquivo spike
-3. Escreve teste failing (RED) na pasta certa
-4. Implementa com TDD normal
-5. Fecha SPIKE-ISSUE referenciando feature issue
+1. Create real issue for feature
+2. Delete spike file
+3. Write failing test (RED) in correct folder
+4. Implement with normal TDD
+5. Close SPIKE-ISSUE referencing feature issue
 
-## Bloqueio automático (hook pre-edit)
+## Automatic block (pre-edit hook)
 
-Hook verifica:
-- Arquivo tem `// SPIKE:` marker?
-  - Sim → bypassa TDD enforcer
-  - Sim + expirou → BLOQUEIA edição com mensagem
-  - Sim + sem ISSUE → BLOQUEIA com mensagem
-- Sem marker + sem teste → BLOQUEIA padrão TDD
+Hook checks:
+- File has `// SPIKE:` marker?
+  - Yes → bypasses TDD enforcer
+  - Yes + expired → BLOCKS editing with message
+  - Yes + no ISSUE → BLOCKS with message
+- No marker + no test → BLOCKS standard TDD

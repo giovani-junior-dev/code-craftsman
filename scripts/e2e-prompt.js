@@ -20,11 +20,11 @@ const ask = (q) => new Promise(r => rl.question(q, r))
 async function main() {
   if (!fs.existsSync(adrDir)) fs.mkdirSync(adrDir, { recursive: true })
 
-  console.log(`\n🔨 craftsman: feature '${featureName}' implementada com unit/snapshot/contract.`)
+  console.log(`\n🔨 craftsman: feature '${featureName}' implemented with unit/snapshot/contract.`)
   console.log('E2E Playwright?')
-  console.log('  [s] Sim — flow crítico de UI')
-  console.log('  [n] Não — contract+unit cobrem')
-  console.log('  [d] Decidir depois (cria issue)')
+  console.log('  [s] Yes — critical UI flow')
+  console.log('  [n] No — contract+unit cover')
+  console.log('  [d] Defer (creates issue)')
 
   const answer = (await ask('> ')).toLowerCase().trim()
   const decisionMap = {
@@ -34,7 +34,7 @@ async function main() {
   }
   const decision = decisionMap[answer] || 'DEFERRED'
 
-  const reason = await ask('Razão (concreta, ≥1 frase): ')
+  const reason = await ask('Reason (concrete, ≥1 sentence): ')
 
   let scope = ''
   let issueNumber = ''
@@ -42,14 +42,14 @@ async function main() {
   let riskAccepted = ''
 
   if (decision === 'YES') {
-    scope = await ask('Cenários a cobrir (smoke/error/visual): ')
+    scope = await ask('Scenarios to cover (smoke/error/visual): ')
   } else if (decision === 'NO') {
-    revisitTrigger = await ask('Quando reconsiderar? (ex: "se UI mudar significativamente"): ')
-    riskAccepted = await ask('Risco aceito (o que pode quebrar sem E2E?): ')
+    revisitTrigger = await ask('When to reconsider? (e.g., "if UI changes significantly"): ')
+    riskAccepted = await ask('Accepted risk (what can break without E2E?): ')
   } else {
-    issueNumber = await ask('Issue # criada para tracking: ')
-    revisitTrigger = await ask('Trigger pra retomar: ')
-    riskAccepted = await ask('Risco interim: ')
+    issueNumber = await ask('Issue # created for tracking: ')
+    revisitTrigger = await ask('Trigger to resume: ')
+    riskAccepted = await ask('Interim risk: ')
   }
 
   // Build ADR from template
@@ -82,7 +82,7 @@ async function main() {
     console.log('  2. npx playwright install')
     console.log('  3. Use template: ~/.claude/skills/code-craftsman/templates/e2e-playwright.template')
   } else if (decision === 'DEFERRED') {
-    console.log(`\n⚠ Pendência: revisitar quando "${revisitTrigger}"`)
+    console.log(`\n⚠ Pending: revisit when "${revisitTrigger}"`)
     console.log(`  Issue tracking: #${issueNumber}`)
   }
 

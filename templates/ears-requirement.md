@@ -1,15 +1,15 @@
 # EARS Requirement Template
 
 > EARS = Easy Approach to Requirements Syntax
-> Format estruturado que reduz ambiguidade e força LLM seguir scope.
+> Structured format that reduces ambiguity and forces LLM to follow scope.
 
-## Forma básica
+## Basic form
 
 `When [trigger/condition], the [system/component] shall [response].`
 
-## 5 padrões EARS
+## 5 EARS patterns
 
-### 1. Ubiquitous (sempre)
+### 1. Ubiquitous (always)
 `The [system] shall [function].`
 > Ex: The API shall return JSON responses.
 
@@ -29,14 +29,14 @@
 `If [error condition], then the [system] shall [response].`
 > Ex: If login attempts exceed 5 in 10min, then the system shall lock account 30min.
 
-## Anti-padrões (não usar)
+## Anti-patterns (don't use)
 
 - ❌ "It would be nice if..."
 - ❌ "The system should be fast"
 - ❌ "Users want..."
 - ❌ "Maybe we could..."
 
-## Template completo
+## Complete template
 
 ```markdown
 # Requirement: <ID> — <Short title>
@@ -53,12 +53,12 @@ When <action>
 Then <observable outcome>
 
 ## Out of scope
-- <X> não está incluso
-- <Y> será tratado em requisito separado
+- <X> not included
+- <Y> handled in separate requirement
 
 ## Test approach
 - [ ] Unit
-- [ ] Snapshot (se UI)
-- [ ] Contract (se API externa)
-- [ ] E2E (decidir após implementação)
+- [ ] Snapshot (if UI)
+- [ ] Contract (if external API)
+- [ ] E2E (decide after implementation)
 ```

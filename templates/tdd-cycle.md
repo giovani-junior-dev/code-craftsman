@@ -17,7 +17,7 @@ describe('createUser', () => {
 })
 ```
 
-Run: `npm test`. **Expect FAIL.** If passes → test wrong.
+Run: `npm test`. **Expect FAIL.** If passes → test is wrong.
 
 ### Step 2: GREEN — minimal code to pass
 

@@ -14,23 +14,23 @@ mkdir -p "$ADR_DIR"
 ADR_FILE="$ADR_DIR/bypass-${RULE}-${TIMESTAMP}.md"
 
 cat > "$ADR_FILE" <<EOF
-# ADR: Bypass de regra '$RULE'
+# ADR: Rule bypass '$RULE'
 
 **Status:** Accepted
 **Date:** $(date -u +"%Y-%m-%dT%H:%M:%SZ")
 **Bypass session:** Active
 
 ## Context
-Code-craftsman skill bloqueou regra: \`$RULE\`
+Code-craftsman skill blocked rule: \`$RULE\`
 
 ## Decision
-Bypass aprovado nessa sessão.
+Bypass approved for this session.
 
 ## Reasoning
 $REASON
 
 ## Revisit Trigger
-Reabilitar regra na próxima sessão (bypass é per-session).
+Re-enable rule next session (bypass is per-session).
 EOF
 
 node -e "
@@ -42,5 +42,5 @@ node -e "
   fs.writeFileSync('$SESSION', JSON.stringify(s, null, 2));
 "
 
-echo "⚠️  Bypass ativado: $RULE"
-echo "ADR criado: $ADR_FILE"
+echo "⚠️  Bypass active: $RULE"
+echo "ADR created: $ADR_FILE"

@@ -30,7 +30,7 @@ async function main() {
 
   const promptLower = prompt.toLowerCase()
   const isPlanning = /plan|planejamento|architecture|design|escrev.*\.md|markdown/i.test(prompt)
-  const isCoding = /implement|code|escrev.*funç|build|criar arquivo/i.test(prompt)
+  const isCoding = /implement|code|write.*func|build|create file/i.test(prompt)
 
   const bypassed = (() => {
     try {
@@ -99,7 +99,7 @@ async function main() {
 - Auto-trigger: HTTP externo → contract test (Pact/MSW + Zod)
 - Auto-trigger: UI render → snapshot inline ≤50 linhas
 - Comentário só explica WHY (motivação), não WHAT
-- Manter comentários de agentes anteriores (contexto p/ próximos)`
+- Keep comments from previous agents (context for next ones)`
   }
 
   reminder += `
