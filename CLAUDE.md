@@ -281,6 +281,67 @@ Format: Status, Date, Context, Decision, Consequences (positive/negative), Alter
 
 ---
 
+## 14. Session Start Protocol (Beads Integration)
+
+**At every session start, AI agent MUST:**
+
+1. Check if `bd` (beads) is available: `which bd`
+2. If repo has `.dolt/` directory → beads already initialized → skip init
+3. If no `.dolt/` and user wants tracking → run `bd init`
+4. Run `bd ready` to fetch issues ready to work (no blocking deps)
+5. Run `bd list` to see full backlog
+6. Reference relevant issues by ID in commits/PRs/SPIKE markers
+
+**Why:** persistent cross-session context. AI knows where previous session stopped.
+
+### Commands AI should run
+
+```bash
+# Session start
+bd ready                       # Issues ready to work (sorted by priority)
+bd list --status open          # All open issues
+bd show <id>                   # Full details on specific issue
+
+# During work
+bd update <id> --status in_progress
+bd update <id> --notes "Progress note"
+bd close <id>                  # When done
+
+# Linking
+bd dep add <a> blocks <b>      # a blocks b
+bd dep add <a> related-to <b>  # related
+```
+
+### Reference issues in artifacts
+
+**Commits:**
+```
+feat(orders): create-order endpoint
+
+Closes code-craftsman-bx1
+```
+
+**SPIKE markers:**
+```typescript
+// SPIKE: validating Stripe Connect — expires 2026-05-12
+// SPIKE-ISSUE: code-craftsman-df2
+```
+
+**ADRs:**
+```markdown
+**Related issues:** code-craftsman-hlo, code-craftsman-vux
+```
+
+### Database location
+
+- `.dolt/` — beads database (gitignored, local only)
+- `*.db` — gitignored
+- `.beads-credential-key` — gitignored
+
+Issues are NOT committed to git. Use `bd export` if backup needed.
+
+---
+
 ## Project-Specific Overrides
 
 Add project-specific rules below this line. Project rules override defaults above when in conflict.
