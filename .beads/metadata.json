@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "code_craftsman",
+  "project_id": "3d5f4d55-2846-43ea-99ab-5c4eac504f04"
+}

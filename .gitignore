@@ -5,3 +5,8 @@ state/stats.json
 state/session.json.bak
 
 # Keep state/enabled.flag and session.json defaults
+
+# Beads / Dolt files (added by bd init)
+.dolt/
+*.db
+.beads-credential-key
